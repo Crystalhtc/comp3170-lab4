@@ -1,0 +1,58 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0 auto;
+    width: 60%;
+}
+
+.task-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.task {
+    width: 100%;
+    padding: 0.5rem;
+}
+
+.task * {
+    display: inline-block;
+}
+
+.task-input-name {
+    min-width: 50%;
+    gap: 1rem;
+}
+
+.task-name {
+    font-weight: bold;
+    margin-left: 1em;
+    font-size: 1.2em;
+}
+
+.input {
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 0px;
+    font-family: serif;
+    font-size: 1em;
+}
+
+.save {
+    background-color: green;
+    color: white;
+}
+
+button {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 0px;
+    padding: 0.5rem 1rem;
+    font-family: serif;
+    font-size: 1em;
+  }
