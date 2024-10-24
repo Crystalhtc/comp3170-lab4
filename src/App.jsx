@@ -12,26 +12,54 @@ function App() {
 
   const [tasks, setTasks] = useState(initialTasks);
   const [taskNumber, setTaskNumber] = useState(initialTasks.length);
+  const [filter, setFilter] = useState('all'); 
 
   // Update task count based on task status
   function handleTaskStatusChange(updatedTasks) {
-    const completedTasks = updatedTasks.filter(task => task.status === 'completed');
-    setTaskNumber(updatedTasks.length - completedTasks.length); // this line should use the updated tasks, not the initial tasks, as the task can be removed
+    const pendingTasks = updatedTasks.filter(task => task.status === 'pending');
+    setTaskNumber(pendingTasks.length);
     setTasks(updatedTasks);
   }
 
   function addTask(newTask) {
-    const updatedTasks = [...tasks, newTask]; // Add the new task
+    const updatedTasks = [...tasks, newTask];
     setTasks(updatedTasks);
-    setTaskNumber(updatedTasks.length);
+    const pendingTasks = updatedTasks.filter(task => task.status === 'pending');
+    setTaskNumber(pendingTasks.length);
   }
+
+  // Filter tasks before passing them to the Task component
+  const filteredTasks = tasks.filter(task => {
+    if (filter === 'all') return true;
+    return task.status === filter;
+  });
 
   return (
     <div className="App">
       <h1>Daily Planner</h1>
       <TaskForm add={addTask}/>
+      
+      <div className="filter-buttons">
+        <button 
+          onClick={() => setFilter('all')}
+        >
+          All
+        </button>
+        <button 
+          onClick={() => setFilter('completed')}
+        >
+          Completed
+        </button>
+        <button 
+          onClick={() => setFilter('pending')}
+        >
+          Pending
+        </button>
+      </div>
+
       <h2>You have {taskNumber} tasks remaining</h2>
-      <Task tasks={tasks} onTaskStatusChange={handleTaskStatusChange} />
+
+      <Task tasks={filteredTasks} onTaskStatusChange={handleTaskStatusChange} />
     </div>
   );
 }
